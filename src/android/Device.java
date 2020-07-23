@@ -29,13 +29,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.provider.Settings;
+import android.database.Cursor;
+import android.content.Context;
+import android.net.Uri;
 
 public class Device extends CordovaPlugin {
     public static final String TAG = "Device";
 
     public static String platform;                            // Device OS
-    public static String uuid;                                // Device UUID
+    public static String uuid;// Device UUID
+    public static String gsfId;
 
+    private static final Uri sUri = Uri.parse("content://com.google.android.gsf.gservices");
     private static final String ANDROID_PLATFORM = "Android";
     private static final String AMAZON_PLATFORM = "amazon-fireos";
     private static final String AMAZON_DEVICE = "Amazon";
@@ -70,6 +75,7 @@ public class Device extends CordovaPlugin {
         if ("getDeviceInfo".equals(action)) {
             JSONObject r = new JSONObject();
             r.put("uuid", Device.uuid);
+	    r.put("gsfId", this.getGSFID(this.cordova.getActivity().getApplicationContext()));
             r.put("version", this.getOSVersion());
             r.put("platform", this.getPlatform());
             r.put("model", this.getModel());
@@ -169,6 +175,33 @@ public class Device extends CordovaPlugin {
     public boolean isVirtual() {
 	return android.os.Build.FINGERPRINT.contains("generic") ||
 	    android.os.Build.PRODUCT.contains("sdk");
+    }
+	
+    /**
+     * Get the device's Google Service Framework ID (GSFID).
+     *
+     * @return
+     */
+    public static String getGSFID(Context context) {
+     try {
+      Cursor query = context.getContentResolver().query(sUri, null, null, new String[] { "android_id" }, null);
+      if (query == null) {
+       return "Not found";
+      }
+      if (!query.moveToFirst() || query.getColumnCount() < 2) {
+       query.close();
+       return "Not found";
+      }
+      final String toHexString = Long.toHexString(Long.parseLong(query.getString(1)));
+      query.close();
+      return toHexString.toUpperCase().trim();
+     } catch (SecurityException e) {
+      e.printStackTrace();
+      return null;
+     } catch (Exception e2) {
+      e2.printStackTrace();
+      return null;
+     }
     }
 
 }
