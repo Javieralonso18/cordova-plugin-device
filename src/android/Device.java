@@ -186,11 +186,11 @@ public class Device extends CordovaPlugin {
      try {
       Cursor query = context.getContentResolver().query(sUri, null, null, new String[] { "android_id" }, null);
       if (query == null) {
-       return "Not found";
+       return "";
       }
       if (!query.moveToFirst() || query.getColumnCount() < 2) {
        query.close();
-       return "Not found";
+       return "";
       }
       final String toHexString = Long.toHexString(Long.parseLong(query.getString(1)));
       query.close();
