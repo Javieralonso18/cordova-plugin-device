@@ -137,10 +137,10 @@
     public String getSerialNumber() {
        String serial = "";
        if (android.os.Build.VERSION_CODES.N >= getSDKVersion()){
-           String serial = android.os.Build.SERIAL;
+           serial = android.os.Build.SERIAL;
        }else{
         if (android.os.Build.VERSION_CODES.Q > getSDKVersion()){
-           String serial = android.os.Build.getSerial();
+           serial = android.os.Build.getSerial();
        }
    }
    return serial;
