@@ -16,25 +16,25 @@
        specific language governing permissions and limitations
        under the License.
 */
-package org.apache.cordova.device;
+       package org.apache.cordova.device;
 
-import java.util.TimeZone;
+       import java.util.TimeZone;
 
-import org.apache.cordova.CordovaWebView;
-import org.apache.cordova.CallbackContext;
-import org.apache.cordova.CordovaPlugin;
-import org.apache.cordova.CordovaInterface;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+       import org.apache.cordova.CordovaWebView;
+       import org.apache.cordova.CallbackContext;
+       import org.apache.cordova.CordovaPlugin;
+       import org.apache.cordova.CordovaInterface;
+       import org.json.JSONArray;
+       import org.json.JSONException;
+       import org.json.JSONObject;
 
-import android.provider.Settings;
-import android.database.Cursor;
-import android.content.Context;
-import android.net.Uri;
+       import android.provider.Settings;
+       import android.database.Cursor;
+       import android.content.Context;
+       import android.net.Uri;
 
-public class Device extends CordovaPlugin {
-    public static final String TAG = "Device";
+       public class Device extends CordovaPlugin {
+        public static final String TAG = "Device";
 
     public static String platform;                            // Device OS
     public static String uuid;// Device UUID
@@ -75,12 +75,12 @@ public class Device extends CordovaPlugin {
         if ("getDeviceInfo".equals(action)) {
             JSONObject r = new JSONObject();
             r.put("uuid", Device.uuid);
-	    r.put("gsfId", this.getGSFID(this.cordova.getActivity().getApplicationContext()));
+            r.put("gsfId", this.getGSFID(this.cordova.getActivity().getApplicationContext()));
             r.put("version", this.getOSVersion());
             r.put("platform", this.getPlatform());
             r.put("model", this.getModel());
             r.put("manufacturer", this.getManufacturer());
-	        r.put("isVirtual", this.isVirtual());
+            r.put("isVirtual", this.isVirtual());
             r.put("serial", this.getSerialNumber());
             callbackContext.success(r);
         }
@@ -135,9 +135,16 @@ public class Device extends CordovaPlugin {
     }
 
     public String getSerialNumber() {
-        String serial = android.os.Build.SERIAL;
-        return serial;
-    }
+       String serial = "";
+       if (android.os.Build.VERSION_CODES.N >= getSDKVersion()){
+           String serial = android.os.Build.SERIAL;
+       }else{
+        if (android.os.Build.VERSION_CODES.Q > getSDKVersion()){
+           String serial = android.os.Build.getSerial();
+       }
+   }
+   return serial;
+}
 
     /**
      * Get the OS version.
@@ -149,9 +156,8 @@ public class Device extends CordovaPlugin {
         return osversion;
     }
 
-    public String getSDKVersion() {
-        @SuppressWarnings("deprecation")
-        String sdkversion = android.os.Build.VERSION.SDK;
+    public Integer getSDKVersion() {
+        Integer sdkversion = android.os.Build.VERSION.SDK_INT;
         return sdkversion;
     }
 
@@ -173,35 +179,35 @@ public class Device extends CordovaPlugin {
     }
 
     public boolean isVirtual() {
-	return android.os.Build.FINGERPRINT.contains("generic") ||
-	    android.os.Build.PRODUCT.contains("sdk");
-    }
-	
+       return android.os.Build.FINGERPRINT.contains("generic") ||
+       android.os.Build.PRODUCT.contains("sdk");
+   }
+
     /**
      * Get the device's Google Service Framework ID (GSFID).
      *
      * @return
      */
     public static String getGSFID(Context context) {
-     try {
-      Cursor query = context.getContentResolver().query(sUri, null, null, new String[] { "android_id" }, null);
-      if (query == null) {
-       return "";
-      }
-      if (!query.moveToFirst() || query.getColumnCount() < 2) {
-       query.close();
-       return "";
-      }
-      final String toHexString = Long.toHexString(Long.parseLong(query.getString(1)));
-      query.close();
-      return toHexString.toUpperCase().trim();
+       try {
+          Cursor query = context.getContentResolver().query(sUri, null, null, new String[] { "android_id" }, null);
+          if (query == null) {
+             return "";
+         }
+         if (!query.moveToFirst() || query.getColumnCount() < 2) {
+             query.close();
+             return "";
+         }
+         final String toHexString = Long.toHexString(Long.parseLong(query.getString(1)));
+         query.close();
+         return toHexString.toUpperCase().trim();
      } catch (SecurityException e) {
       e.printStackTrace();
       return null;
-     } catch (Exception e2) {
+  } catch (Exception e2) {
       e2.printStackTrace();
       return null;
-     }
-    }
+  }
+}
 
 }
