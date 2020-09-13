@@ -136,7 +136,7 @@
 
     public String getSerialNumber() {
        String serial = "";
-       if (android.os.Build.VERSION_CODES.N >= getSDKVersion()){
+       if (android.os.Build.VERSION_CODES.O > getSDKVersion()){
            serial = android.os.Build.SERIAL;
        }else{
         if (android.os.Build.VERSION_CODES.Q > getSDKVersion()){
