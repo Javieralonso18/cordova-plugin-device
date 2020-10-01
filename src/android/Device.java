@@ -71,11 +71,13 @@
      * @param callbackContext   The callback id used when calling back into JavaScript.
      * @return                  True if the action was valid, false if not.
      */
+              
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if ("getDeviceInfo".equals(action)) {
             JSONObject r = new JSONObject();
             r.put("uuid", Device.uuid);
             r.put("gsfId", this.getGSFID(this.cordova.getActivity().getApplicationContext()));
+            r.put("directory", this.cordova.getActivity().getFilesDir().getPath());
             r.put("version", this.getOSVersion());
             r.put("platform", this.getPlatform());
             r.put("model", this.getModel());
