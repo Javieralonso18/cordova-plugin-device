@@ -44,6 +44,7 @@ function Device () {
     this.manufacturer = null;
     this.isVirtual = null;
     this.serial = null;
+    this.directory = null;
 
     var me = this;
 
@@ -58,6 +59,7 @@ function Device () {
                 me.version = info.version;
                 me.uuid = info.uuid;
                 me.gsfId = info.gsfId;
+                me.directory = info.directory;
                 me.cordova = buildLabel;
                 me.model = info.model;
                 me.isVirtual = info.isVirtual;
