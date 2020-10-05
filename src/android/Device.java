@@ -19,7 +19,7 @@ under the License.
 package org.apache.cordova.device;
 
 import java.util.TimeZone;
-import java.io.File;
+import java.io.*;
 
 import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.CallbackContext;
