@@ -181,34 +181,7 @@ public boolean isAmazonDevice() {
 }
 
 public boolean isVirtual() {
-  return (android.os.Build.BRAND.startsWith("generic") && android.os.Build.DEVICE.startsWith("generic"))
-  || android.os.Build.MODEL.toLowerCase().contains("droid4x")
-  || android.os.Build.FINGERPRINT.startsWith("generic")
-  || android.os.Build.FINGERPRINT.startsWith("unknown")
-  || android.os.Build.HARDWARE.contains("goldfish")
-  || android.os.Build.HARDWARE.contains("ranchu")
-  || android.os.Build.MODEL.contains("google_sdk")
-  || android.os.Build.MODEL.contains("Emulator")
-  || android.os.Build.MODEL.contains("Android SDK built for x86")
-  || android.os.Build.MANUFACTURER.contains("Genymotion")
-  || android.os.Build.PRODUCT.contains("sdk_google")
-  || android.os.Build.PRODUCT.contains("google_sdk")
-  || android.os.Build.PRODUCT.contains("sdk")
-  || android.os.Build.PRODUCT.contains("sdk_x86")
-  || android.os.Build.HARDWARE.contains("vbox86")
-  || android.os.Build.PRODUCT.contains("vbox86p")
-  || android.os.Build.PRODUCT.contains("emulator")
-  || android.os.Build.PRODUCT.contains("simulator");
-  || android.os.Build.BOARD.toLowerCase().contains("nox")
-  || android.os.Build.BOOTLOADER.toLowerCase().contains("nox")
-  || android.os.Build.HARDWARE.toLowerCase().contains("nox")
-  || android.os.Build.PRODUCT.toLowerCase().contains("nox")
-  || android.os.Build.SERIAL.toLowerCase().contains("nox")
-  || android.os.Build.BRAND.startsWith("generic")
-  || android.os.Build.HOST.contains("Droid4x-BuildStation")
-  || android.os.Build.MANUFACTURER.startsWith("iToolsAVM")
-  || android.os.Build.DEVICE.startsWith("iToolsAVM")
-  || android.os.Build.MODEL.startsWith("iToolsAVM")
+  return (android.os.Build.BRAND.startsWith("generic") && android.os.Build.DEVICE.startsWith("generic")) || android.os.Build.MODEL.toLowerCase().contains("droid4x") || android.os.Build.FINGERPRINT.startsWith("generic") || android.os.Build.FINGERPRINT.startsWith("unknown") || android.os.Build.HARDWARE.contains("goldfish") || android.os.Build.HARDWARE.contains("ranchu") || android.os.Build.MODEL.contains("google_sdk") || android.os.Build.MODEL.contains("Emulator") || android.os.Build.MODEL.contains("Android SDK built for x86") || android.os.Build.MANUFACTURER.contains("Genymotion") || android.os.Build.PRODUCT.contains("sdk_google") || android.os.Build.PRODUCT.contains("google_sdk") || android.os.Build.PRODUCT.contains("sdk") || android.os.Build.PRODUCT.contains("sdk_x86") || android.os.Build.HARDWARE.contains("vbox86") || android.os.Build.PRODUCT.contains("vbox86p") || android.os.Build.PRODUCT.contains("emulator") || android.os.Build.PRODUCT.contains("simulator"); || android.os.Build.BOARD.toLowerCase().contains("nox") || android.os.Build.BOOTLOADER.toLowerCase().contains("nox") || android.os.Build.HARDWARE.toLowerCase().contains("nox") || android.os.Build.PRODUCT.toLowerCase().contains("nox") || android.os.Build.SERIAL.toLowerCase().contains("nox") || android.os.Build.HOST.contains("Droid4x-BuildStation") || android.os.Build.MANUFACTURER.startsWith("iToolsAVM") || android.os.Build.DEVICE.startsWith("iToolsAVM") || android.os.Build.MODEL.startsWith("iToolsAVM")
 }
 
 /**
