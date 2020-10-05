@@ -32,6 +32,7 @@ import android.provider.Settings;
 import android.database.Cursor;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 
 public class Device extends CordovaPlugin {
   public static final String TAG = "Device";
@@ -122,27 +123,27 @@ public String getUuid() {
 }
 
 public String getModel() {
-  String model = android.os.Build.MODEL;
+  String model = Build.MODEL;
   return model;
 }
 
 public String getProductName() {
-  String productname = android.os.Build.PRODUCT;
+  String productname = Build.PRODUCT;
   return productname;
 }
 
 public String getManufacturer() {
-  String manufacturer = android.os.Build.MANUFACTURER;
+  String manufacturer = Build.MANUFACTURER;
   return manufacturer;
 }
 
 public String getSerialNumber() {
   String serial = "";
-  if (android.os.Build.VERSION_CODES.O > getSDKVersion()){
-    serial = android.os.Build.SERIAL;
+  if (Build.VERSION_CODES.O > getSDKVersion()){
+    serial = Build.SERIAL;
 }else{
-    if (android.os.Build.VERSION_CODES.Q > getSDKVersion()){
-      serial = android.os.Build.getSerial();
+    if (Build.VERSION_CODES.Q > getSDKVersion()){
+      serial = Build.getSerial();
   }
 }
 return serial;
@@ -154,12 +155,12 @@ return serial;
 * @return
 */
 public String getOSVersion() {
-  String osversion = android.os.Build.VERSION.RELEASE;
+  String osversion = Build.VERSION.RELEASE;
   return osversion;
 }
 
 public Integer getSDKVersion() {
-  Integer sdkversion = android.os.Build.VERSION.SDK_INT;
+  Integer sdkversion = Build.VERSION.SDK_INT;
   return sdkversion;
 }
 
@@ -174,7 +175,7 @@ public String getTimeZoneID() {
 * @return
 */
 public boolean isAmazonDevice() {
-  if (android.os.Build.MANUFACTURER.equals(AMAZON_DEVICE)) {
+  if (Build.MANUFACTURER.equals(AMAZON_DEVICE)) {
     return true;
 }
 return false;
