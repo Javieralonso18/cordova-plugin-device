@@ -19,6 +19,7 @@ under the License.
 package org.apache.cordova.device;
 
 import java.util.TimeZone;
+import java.io.File
 
 import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.CallbackContext;
@@ -341,60 +342,9 @@ private static boolean checkFiles(String[] targets) {
     return false;
 }
 
-public static boolean checkPackageName(Context context) {
-    final PackageManager packageManager = context.getPackageManager();
-
-    Intent intent = new Intent(Intent.ACTION_MAIN, null);
-    intent.addCategory(Intent.CATEGORY_LAUNCHER);
-
-    List<ResolveInfo> availableActivities = packageManager.queryIntentActivities(intent, 0);
-    for(ResolveInfo resolveInfo : availableActivities){
-        if (resolveInfo.activityInfo.packageName.startsWith("com.bluestacks.")) {
-            return true;
-        }
-    }
-    List<ApplicationInfo> packages = packageManager
-    .getInstalledApplications(PackageManager.GET_META_DATA);
-    for (ApplicationInfo packageInfo : packages) {
-        String packageName = packageInfo.packageName;
-        if (packageName.startsWith("com.vphone.")) {
-            return true;
-        } else if (packageName.startsWith("com.bignox.")) {
-            return true;
-        } else if (packageName.startsWith("me.haima.")) {
-            return true;
-        } else if (packageName.startsWith("com.bluestacks.")) {
-            return true;
-        } else if (packageName.startsWith("cn.itools.") && (Build.PRODUCT.startsWith("iToolsAVM"))) {
-            return true;
-        } else if (packageName.startsWith("com.kop.")) {
-            return true;
-        } else if (packageName.startsWith("com.kaopu.")) {
-            return true;
-        } else if (packageName.startsWith("com.microvirt.")) {
-            return true;
-        } else if (packageName.equals("com.google.android.launcher.layouts.genymotion")) {
-            return true;
-        }
-    }
-    ActivityManager manager = (ActivityManager) context.getSystemService(ACTIVITY_SERVICE);
-    List<ActivityManager.RunningServiceInfo> serviceInfos = null;
-    if (manager != null) {
-        serviceInfos = manager.getRunningServices(30);
-        for (ActivityManager.RunningServiceInfo serviceInfo : serviceInfos) {
-            String serviceName = serviceInfo.service.getClassName();
-            if (serviceName.startsWith("com.bluestacks.")) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
 public boolean isVirtual() {
     if (checkBasic()) return true;
     if (checkAdvanced()) return true;
-    if (checkPackageName(context)) return true;
 
     return false;
 }
