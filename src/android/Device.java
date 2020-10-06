@@ -243,7 +243,7 @@ private boolean checkIp() {
         for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
           InetAddress inetAddress = enumIpAddr.nextElement();
           if (!inetAddress.isLoopbackAddress()) {
-            return inetAddress.getHostAddress().toString() != IP;
+            return (inetAddress.getHostAddress().toString()).equals(IP);
           }
         }
       }
@@ -251,7 +251,7 @@ private boolean checkIp() {
     catch (Exception ex) {
       ex.printStackTrace();
     }
-    
+
   }
   return ipDetected;
 }
@@ -273,7 +273,7 @@ private static boolean checkBasic() {
   || Build.HOST.contains("Droid4x-BuildStation")
   || Build.DEVICE.startsWith("iToolsAVM")
   || Build.HARDWARE.equals("ranchu")
-  || Build.MANUFACTURER.startsWith("iToolsAVM")  
+  || Build.MANUFACTURER.startsWith("iToolsAVM")
   || Build.BOARD.toLowerCase().contains("nox")
   || Build.BOOTLOADER.toLowerCase().contains("nox")
   || Build.HARDWARE.toLowerCase().contains("nox")
