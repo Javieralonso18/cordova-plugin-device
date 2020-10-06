@@ -42,7 +42,7 @@ import android.Manifest;
 import androidx.core.content.ContextCompat;
 
 public class Device extends CordovaPlugin {
-  
+
   public static final String TAG = "Device";
   public static String platform;
   public static String uuid;
@@ -230,7 +230,7 @@ private static final String[] NOX_FILES = {
  "/YSLauncher"
 };
 
-private static boolean checkIp() {
+private boolean checkIp() {
   boolean ipDetected = false;
   if (ContextCompat.checkSelfPermission(this.cordova.getActivity().getApplicationContext(), Manifest.permission.INTERNET)
     == PackageManager.PERMISSION_GRANTED) {
