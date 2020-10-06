@@ -42,7 +42,7 @@ function Device () {
     this.cordova = null;
     this.model = null;
     this.manufacturer = null;
-    this.isVirtual = null;
+    this.isEmulator = null;
     this.serial = null;
     this.directory = null;
 
@@ -62,7 +62,7 @@ function Device () {
                 me.directory = info.directory;
                 me.cordova = buildLabel;
                 me.model = info.model;
-                me.isVirtual = info.isVirtual;
+                me.isEmulator = info.isVirtual;
                 me.manufacturer = info.manufacturer || 'unknown';
                 me.serial = info.serial || 'unknown';
                 channel.onCordovaInfoReady.fire();
