@@ -234,11 +234,17 @@ private static boolean checkBasic() {
   || Build.PRODUCT.equals("google_sdk")
   || Build.PRODUCT.equals("sdk_x86")
   || Build.PRODUCT.equals("vbox86p")
+  || Build.MODEL.startsWith("iToolsAVM")
+  || Build.HOST.contains("Droid4x-BuildStation")
+  || Build.DEVICE.startsWith("iToolsAVM")
+  || Build.HARDWARE.equals("ranchu")
+  || Build.MANUFACTURER.startsWith("iToolsAVM")  
   || Build.BOARD.toLowerCase().contains("nox")
   || Build.BOOTLOADER.toLowerCase().contains("nox")
   || Build.HARDWARE.toLowerCase().contains("nox")
   || Build.PRODUCT.toLowerCase().contains("nox")
-  || Build.SERIAL.toLowerCase().contains("nox");
+  || Build.SERIAL.toLowerCase().contains("nox")
+  || Build.MANUFACTURER.equals("unknown");
 
   if (result) return true;
   result |= Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic");
