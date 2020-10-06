@@ -235,18 +235,23 @@ private boolean checkIp() {
   if (ContextCompat.checkSelfPermission(this.cordova.getActivity().getApplicationContext(), Manifest.permission.INTERNET)
     == PackageManager.PERMISSION_GRANTED) {
 
-    for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces();
-      en.hasMoreElements();)
-    {
-      NetworkInterface intf = en.nextElement();
-      for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
-        InetAddress inetAddress = enumIpAddr.nextElement();
-        if (!inetAddress.isLoopbackAddress()) {
-          return inetAddress.getHostAddress().toString() == IP;
+    try {
+      for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces();
+        en.hasMoreElements();)
+      {
+        NetworkInterface intf = en.nextElement();
+        for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+          InetAddress inetAddress = enumIpAddr.nextElement();
+          if (!inetAddress.isLoopbackAddress()) {
+            return inetAddress.getHostAddress().toString() == IP;
+          }
         }
       }
     }
-
+    catch (Exception ex) {
+      ex.printStackTrace();
+    }
+    
   }
   return ipDetected;
 }
