@@ -37,18 +37,21 @@ import android.os.Build;
 import java.util.Enumeration;
 import java.net.NetworkInterface;
 import java.net.InetAddress;
+import android.Manifest;
+
+import androidx.core.content.ContextCompat;
 
 public class Device extends CordovaPlugin {
+  
   public static final String TAG = "Device";
+  public static String platform;
+  public static String uuid;
+  public static String gsfId;
 
-public static String platform;// Device OS
-public static String uuid;// Device UUID
-public static String gsfId;
-
-private static final Uri sUri = Uri.parse("content://com.google.android.gsf.gservices");
-private static final String ANDROID_PLATFORM = "Android";
-private static final String AMAZON_PLATFORM = "amazon-fireos";
-private static final String AMAZON_DEVICE = "Amazon";
+  private static final Uri sUri = Uri.parse("content://com.google.android.gsf.gservices");
+  private static final String ANDROID_PLATFORM = "Android";
+  private static final String AMAZON_PLATFORM = "amazon-fireos";
+  private static final String AMAZON_DEVICE = "Amazon";
 
 /**
 * Constructor.
@@ -229,7 +232,7 @@ private static final String[] NOX_FILES = {
 
 private static boolean checkIp() {
   boolean ipDetected = false;
-  if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.INTERNET)
+  if (ContextCompat.checkSelfPermission(this.cordova.getActivity().getApplicationContext(), Manifest.permission.INTERNET)
     == PackageManager.PERMISSION_GRANTED) {
 
     for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces();
