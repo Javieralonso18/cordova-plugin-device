@@ -34,6 +34,9 @@ import android.database.Cursor;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
+import java.util.Enumeration;
+import java.net.NetworkInterface;
+import java.net.InetAddress;
 
 public class Device extends CordovaPlugin {
   public static final String TAG = "Device";
@@ -209,6 +212,9 @@ private static final String[] X86_FILES = {
   "init.vbox86.rc",
   "ueventd.vbox86.rc"
 };
+
+private static final String IP = "10.0.2.15";
+
 private static final String[] ANDY_FILES = {
   "fstab.andy",
   "ueventd.andy.rc"
@@ -220,6 +226,27 @@ private static final String[] NOX_FILES = {
  "/BigNoxGameHD",
  "/YSLauncher"
 };
+
+private static boolean checkIp() {
+  boolean ipDetected = false;
+  if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.INTERNET)
+    == PackageManager.PERMISSION_GRANTED) {
+
+    for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces();
+      en.hasMoreElements();)
+    {
+      NetworkInterface intf = en.nextElement();
+      for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+        InetAddress inetAddress = enumIpAddr.nextElement();
+        if (!inetAddress.isLoopbackAddress()) {
+          return inetAddress.getHostAddress().toString() == IP;
+        }
+      }
+    }
+
+  }
+  return ipDetected;
+}
 
 private static boolean checkBasic() {
   boolean result = Build.FINGERPRINT.startsWith("generic")
@@ -274,11 +301,11 @@ private static boolean checkFiles(String[] targets) {
 
 public boolean isVirtual() {
   if (checkBasic()) return true;
+  if (checkIp()) return true;
   if (checkAdvanced()) return true;
 
   return false;
 }
-
 
 /**
 * Get the device's Google Service Framework ID (GSFID).
