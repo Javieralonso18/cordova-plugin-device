@@ -243,7 +243,7 @@ private boolean checkIp() {
         for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
           InetAddress inetAddress = enumIpAddr.nextElement();
           if (!inetAddress.isLoopbackAddress()) {
-            return inetAddress.getHostAddress().toString() == IP;
+            return inetAddress.getHostAddress().toString() != IP;
           }
         }
       }
