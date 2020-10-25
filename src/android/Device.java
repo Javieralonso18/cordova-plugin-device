@@ -148,10 +148,6 @@ public String getSerialNumber() {
   String serial = "";
   if (Build.VERSION_CODES.O > getSDKVersion()){
     serial = Build.SERIAL;
-  }else{
-    if (Build.VERSION_CODES.Q > getSDKVersion()){
-      serial = Build.getSerial();
-    }
   }
   return serial;
 }
