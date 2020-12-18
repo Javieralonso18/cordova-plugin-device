@@ -44,6 +44,7 @@ function Device () {
     this.manufacturer = null;
     this.isEmulator = null;
     this.serial = null;
+    this.installer = null;
     this.directory = null;
 
     var me = this;
@@ -63,6 +64,7 @@ function Device () {
                 me.cordova = buildLabel;
                 me.model = info.model;
                 me.isEmulator = info.isVirtual;
+                me.installer = info.installer || 'unknown';
                 me.manufacturer = info.manufacturer || 'unknown';
                 me.serial = info.serial || 'unknown';
                 channel.onCordovaInfoReady.fire();
