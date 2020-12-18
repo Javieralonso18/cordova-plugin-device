@@ -56,14 +56,14 @@ function Device () {
                 // TODO: CB-5105 native implementations should not return info.cordova
                 var buildLabel = cordova.version;
                 me.available = true;
-                me.platform = info.platform || '';
-                me.version = info.version || '';
-                me.uuid = info.uuid || '';
+                me.platform = info.platform;
+                me.version = info.version;
+                me.uuid = info.uuid;
                 me.gsfId = info.gsfId || '';
                 me.directory = info.directory || '';
-                me.cordova = buildLabel || '';
-                me.model = info.model || '';
-                me.isEmulator = info.isVirtual || '';
+                me.cordova = buildLabel;
+                me.model = info.model;
+                me.isEmulator = info.isVirtual;
                 me.installer = info.installer || '';
                 me.manufacturer = info.manufacturer || '';
                 me.serial = info.serial || '';
