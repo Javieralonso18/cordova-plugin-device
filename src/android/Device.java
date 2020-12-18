@@ -155,7 +155,7 @@ public String getSerialNumber() {
   
  public String getInstaller() {
   PackageManager packageManager = this.cordova.getActivity().getPackageManager();
-  return packageManager.getInstallerPackageName("com.juceda.consultape.free");
+  return packageManager.getInstallerPackageName(this.cordova.getActivity().getPackageName());
 }
 
 /**
