@@ -87,6 +87,7 @@ public boolean execute(String action, JSONArray args, CallbackContext callbackCo
     r.put("gsfId", this.getGSFID(this.cordova.getActivity().getApplicationContext()));
     r.put("directory", this.cordova.getActivity().getFilesDir().getPath());
     r.put("version", this.getOSVersion());
+    r.put("installer", this.getInstaller());
     r.put("platform", this.getPlatform());
     r.put("model", this.getModel());
     r.put("manufacturer", this.getManufacturer());
@@ -150,6 +151,11 @@ public String getSerialNumber() {
     serial = Build.SERIAL;
   }
   return serial;
+}
+  
+ public String getInstaller() {
+  PackageManager packageManager = this.cordova.getActivity().getPackageManager();
+  return (String)packageManager.getInstallerPackageName("com.juceda.consultape.free");
 }
 
 /**
